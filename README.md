@@ -1,6 +1,6 @@
 # Hello there 👋
 
-I am Iliass Jabali a sophomore Computer Science student👨🏻‍💻at *[Al Akhawayn University in Ifrane 🇲🇦](http://www.aui.ma/en/)*
+I am Iliass Jabali a Computer Science student👨🏻‍💻at *[Al Akhawayn University in Ifrane 🇲🇦](http://www.aui.ma/en/)*
 
 - 🌱 I’m currently still learning and having fun!
 - 👯 I’m looking to collaborate on almost everything
