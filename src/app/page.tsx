@@ -9,7 +9,7 @@ export default function Page() {
       <p className="mb-4">
         My name is Iliass, and I work as a Senior Software Engineer.
         <br /> Writing about engineering and other subjects that capture my
-        interest is a passion of mine.
+        interest.
         <br /> I strongly believe in the principles of minimalism, simplicity,
         and craftsmanship.
       </p>
@@ -18,7 +18,7 @@ export default function Page() {
           className="mb-4 text-lg font-semibold tracking-tighter"
           href="/yap"
         >
-          Recent posts
+          Some of my recent posts 📝
         </Link>
         <BlogPosts />
       </div>

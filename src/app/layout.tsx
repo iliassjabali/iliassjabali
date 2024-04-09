@@ -1,12 +1,11 @@
 import "./global.css";
 import type { Metadata } from "next";
 import { Shantell_Sans } from "next/font/google";
-import { Navbar } from "../components/nav";
+import { Navbar } from "@/components/nav";
 import { Analytics } from "@vercel/analytics/react";
 import { SpeedInsights } from "@vercel/speed-insights/next";
-import { Footer } from "../components/footer";
-import { baseUrl } from "@/lib/utils";
-import { cn } from "@/lib/utils";
+import { Footer } from "@/components/footer";
+import { baseUrl, cn } from "@/lib/utils";
 
 const fonnt = Shantell_Sans({
   display: "swap",
@@ -42,9 +41,9 @@ export const metadata: Metadata = {
 
 export default function RootLayout({
   children,
-}: {
+}: Readonly<{
   children: React.ReactNode;
-}) {
+}>) {
   return (
     <html
       lang="en"
