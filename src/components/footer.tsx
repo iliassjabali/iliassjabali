@@ -17,10 +17,7 @@ export const Footer = () => (
   <footer className="mb-16">
     <ul className="font-sm mt-8 flex flex-col space-y-2 space-x-0 text-neutral-600 md:flex-row md:space-y-0 md:space-x-4 dark:text-neutral-300">
       {[
-        {
-          href: "https://www.twitter.com/iliassjabali",
-          title: "Twitter",
-        },
+
         {
           href: "https://github.com/iliassjabali",
           title: "Github",
@@ -28,10 +25,6 @@ export const Footer = () => (
         {
           href: "https://cal.com/iliassjabali",
           title: "Let's chat",
-        },
-        {
-          href: "/rss",
-          title: "rss",
         },
       ].map(({ href, title }) => (
         <li key={href}>
