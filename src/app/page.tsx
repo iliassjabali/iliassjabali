@@ -1,4 +1,6 @@
 import { BlogPosts } from "@/components/posts";
+import { Separator } from "@/components/ui/separator";
+
 import Link from "next/link";
 export default function Page() {
   return (
@@ -15,11 +17,12 @@ export default function Page() {
       </p>
       <div className="my-8">
         <Link
-          className="mb-4 text-lg font-semibold tracking-tighter"
+          className="mb-4 text-lg font-semibold tracking-tighter "
           href="/yap"
         >
-          Some of my recent posts 📝
+          Some of my recent posts: <Separator className="my-4" />
         </Link>
+
         <BlogPosts />
       </div>
       {/* <div className="my-8">

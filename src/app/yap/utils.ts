@@ -52,5 +52,5 @@ export const formatDate = (
   if (!includeRelative) {
     return fullDate;
   }
-  return `${fullDate} (${formatDistanceToNow(targetDate, { addSuffix: true })})`;
+  return `${fullDate}(${formatDistanceToNow(targetDate, { addSuffix: true })})`;
 };

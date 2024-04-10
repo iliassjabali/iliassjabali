@@ -1,23 +1,14 @@
 "use client";
-import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import {
-  DialogTrigger,
-  DialogTitle,
-  DialogDescription,
-  DialogHeader,
-  DialogFooter,
-  DialogContent,
   Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
 } from "@/components/ui/dialog";
-import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
-import { Label } from "@/components/ui/label";
-import { toast } from "sonner";
-import { createInsertSchema } from "drizzle-zod";
-import { comments } from "@/lib/db/schema";
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
 import {
   Form,
   FormControl,
@@ -27,13 +18,28 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Textarea } from "@/components/ui/textarea";
+import { comments } from "@/lib/db/schema";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { createInsertSchema } from "drizzle-zod";
+import { useState } from "react";
+import { useForm } from "react-hook-form";
+import { toast } from "sonner";
 import type { z } from "zod";
 
 const formSchema = createInsertSchema(comments);
 type formType = z.input<typeof formSchema>;
 
-// https://api.ipify.org?format=json
-export const AddComment = ({ post_slug }: { post_slug: string }) => {
+export const AddComment = ({
+  post_slug,
+  insertComment,
+}: {
+  post_slug: string;
+  insertComment: (values: formType) => Promise<void>;
+}) => {
+  const [open, setOpen] = useState(false);
   const form = useForm<formType>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -41,11 +47,16 @@ export const AddComment = ({ post_slug }: { post_slug: string }) => {
     },
   });
   function onSubmit(values: formType) {
-    console.log("values", values);
+    toast.promise(insertComment(values), {
+      loading: "Submitting comment...",
+      success: "Comment submitted!",
+      error: "Failed to submit comment.",
+    });
+    setOpen(false);
   }
 
   return (
-    <Dialog>
+    <Dialog open={open} onOpenChange={setOpen} modal={true}>
       <DialogTrigger asChild>
         <Button size="sm" variant="ghost">
           Add comment
