@@ -6,6 +6,7 @@ import { Analytics } from "@vercel/analytics/react";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { Footer } from "@/components/footer";
 import { baseUrl, cn } from "@/lib/utils";
+import { Toaster } from "@/components/ui/sonner";
 
 const fonnt = Shantell_Sans({
   display: "swap",
@@ -57,10 +58,12 @@ export default function RootLayout({
         <main className="mt-6 flex min-w-0 flex-auto flex-col px-2 md:px-0">
           <Navbar />
           {children}
+
           <Footer />
           <Analytics />
           <SpeedInsights />
         </main>
+        <Toaster />
       </body>
     </html>
   );

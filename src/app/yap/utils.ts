@@ -43,8 +43,11 @@ const getMDXData = (dir: string) =>
 export const getBlogPosts = () =>
   getMDXData(path.join(process.cwd(), "src", "app", "yap", "posts"));
 
-export const formatDate = (dateString: string, includeRelative = false) => {
-  const targetDate = parseISO(dateString);
+export const formatDate = (
+  dateString: string | null | Date,
+  includeRelative = false,
+) => {
+  const targetDate = parseISO(new Date(dateString ?? "").toISOString());
   const fullDate = format(targetDate, "MMM d, yy");
   if (!includeRelative) {
     return fullDate;
