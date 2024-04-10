@@ -5,4 +5,15 @@ tags: "postgres, mysql, SQL"
 summary: "A comparison of indexing in Postgres and MySQL"
 ---
 
-# Indexing in Postgres compared to MySQL
+### Indexing in Postgres compared to MySQL
+
+PostgreSQL and MySQL, two popular relational database management systems, have important differences in how they handle indexing data. These differences stem from their underlying architectures and design philosophies.
+
+- PostgreSQL offers a diverse range of index types beyond just B-trees, including ones optimized for full-text search, geographic data, and other specialized use cases. It also supports functional indexes on expressions, partial indexes on subsets of data, and better concurrency control with its multiversion model.
+- MySQL has a more limited set of index types but has made strides in areas like functional key parts.
+
+### Storage and Update Mechanisms
+The two databases also differ in how indexes are stored, updated, and integrated with the main table data. 
+PostgreSQL separates indexes, while MySQL's InnoDB storage engine co-locates indexes and data by default. Visibility of index changes, locking mechanisms, and customization options also vary.
+
+Ultimately, the ideal indexing strategy depends on the application's data model, query patterns, and performance needs. PostgreSQL's advanced indexing capabilities are well-suited for complex querying and analytical workloads, while MySQL can be simpler but optimized for OLTP-style loads. Understanding these differences allows developers to choose the right database engine and indexing approaches for their use case.
