@@ -1,4 +1,5 @@
 "use client";
+import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import {
   DialogTrigger,
@@ -9,19 +10,40 @@ import {
   DialogContent,
   Dialog,
 } from "@/components/ui/dialog";
-import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
+import { Label } from "@/components/ui/label";
 import { toast } from "sonner";
-import { createInsertSchema, createSelectSchema } from "drizzle-zod";
+import { createInsertSchema } from "drizzle-zod";
 import { comments } from "@/lib/db/schema";
-import { z } from "zod";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import {
+  Form,
+  FormControl,
+  FormDescription,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form";
+import type { z } from "zod";
 
 const formSchema = createInsertSchema(comments);
-type FormSchema = z.input<typeof formSchema>;
+type formType = z.input<typeof formSchema>;
 
 // https://api.ipify.org?format=json
 export const AddComment = ({ post_slug }: { post_slug: string }) => {
+  const form = useForm<formType>({
+    resolver: zodResolver(formSchema),
+    defaultValues: {
+      post_slug,
+    },
+  });
+  function onSubmit(values: formType) {
+    console.log("values", values);
+  }
+
   return (
     <Dialog>
       <DialogTrigger asChild>
@@ -36,32 +58,43 @@ export const AddComment = ({ post_slug }: { post_slug: string }) => {
             Enter your name and comment below.
           </DialogDescription>
         </DialogHeader>
-        <div className="space-y-4">
-          <div>
-            <Label className="sr-only" htmlFor="user_name">
-              Name
-            </Label>
-            <Input
-              className="w-full font-semibold"
-              id="user_name"
-              placeholder="Name"
+        <Form {...form}>
+          <form className="space-y-4">
+            <FormField
+              control={form.control}
+              name="user_name"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Username</FormLabel>
+                  <FormControl>
+                    <Input {...field} value={field.value ?? undefined} />
+                  </FormControl>
+                  <FormDescription>
+                    This is your public display name.
+                  </FormDescription>
+                  <FormMessage />
+                </FormItem>
+              )}
             />
-          </div>
-          <div>
-            <Label className="sr-only" htmlFor="comment">
-              Comment
-            </Label>
-            <Textarea
-              className="min-h-[100px] w-full resize-none"
-              id="comment"
-              placeholder="Your comment"
+            <FormField
+              control={form.control}
+              name="comment"
+              defaultValue={""}
+              render={({ field }) => (
+                <FormItem>
+                  <Label>Comment</Label>
+                  <Textarea {...field} value={field.value ?? undefined} />
+                  <FormMessage />
+                </FormItem>
+              )}
             />
-          </div>
-        </div>
+          </form>
+        </Form>
         <DialogFooter>
           <Button
             type="submit"
             className="w-full bg-blue-500 text-white hover:bg-blue-600"
+            onClick={form.handleSubmit(onSubmit)}
           >
             Submit
           </Button>
