@@ -1,15 +1,11 @@
 import { CustomMDX } from "@/components/mdx";
 import { Separator } from "@/components/ui/separator";
 import { Skeleton } from "@/components/ui/skeleton";
-import db from "@/lib/db";
-import { comments } from "@/lib/db/schema";
 import { baseUrl } from "@/lib/utils";
-import { desc, eq } from "drizzle-orm";
-import { revalidatePath } from "next/cache";
 import { notFound } from "next/navigation";
 import { Suspense } from "react";
 import { formatDate, getBlogPosts } from "../utils";
-import { AddComment } from "./AddComment";
+import { Comments } from "./comments";
 
 export const generateStaticParams = () =>
   getBlogPosts().map((post) => ({
@@ -54,65 +50,6 @@ export function generateMetadata({ params }: { params: { slug: string } }) {
   };
 }
 
-const Comments = async ({ post_slug }: { post_slug: string }) => {
-  const LIMIT = 10;
-  const data = await db
-    .select()
-    .from(comments)
-    .where(eq(comments.post_slug, post_slug))
-    .orderBy(desc(comments.createdAt))
-    .limit(LIMIT);
-
-  return (
-    <div>
-      {data.length > 0 ? (
-        <>
-          {data.map(({ id, comment, user_name, createdAt }) => (
-            <div key={id} className="mt-4">
-              <p className="text-neutral-900 dark:text-neutral-100">
-                {comment}
-              </p>
-              <div className="mt-2 flex items-center">
-                <p className="text-sm text-neutral-600 dark:text-neutral-400">
-                  {user_name}
-                </p>
-                <span className="mx-2">-</span>
-                <p className="text-sm text-neutral-600 dark:text-neutral-400">
-                  {formatDate(createdAt, true)}
-                </p>
-              </div>
-            </div>
-          ))}
-          <Separator className="mt-4 bg-neutral-300 dark:bg-neutral-700" />
-          {data.length === LIMIT && (
-            <div className="mt-4">
-              <p className="text-neutral-600 dark:text-neutral-400">
-                Theres more comments but I don&apos;t want to load them all at
-                once...
-              </p>
-            </div>
-          )}
-        </>
-      ) : (
-        <p className="mt-4 text-neutral-600 dark:text-neutral-400">
-          No comments yet 😢
-        </p>
-      )}
-      <AddComment
-        post_slug={post_slug}
-        insertComment={async (values) => {
-          "use server";
-          try {
-            await db.insert(comments).values(values);
-            revalidatePath(`/yap/${post_slug}`);
-          } catch (error) {
-            console.log("🚀 ~ insertComment={ ~ error:", error);
-          }
-        }}
-      />
-    </div>
-  );
-};
 export default function Blog({
   params,
 }: Readonly<{ params: { slug: string } }>) {
@@ -175,7 +112,6 @@ export default function Blog({
           <h2 className="text-lg font-semibold">Comments</h2>
           {/* Add a new comment should be a simple model */}
         </div>
-
         <Suspense
           fallback={
             <div className="mt-4">

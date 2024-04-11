@@ -18,7 +18,7 @@ export const BlogPosts = () => (
           href={`/yap/${post.slug}`}
         >
           <div className="flex w-full flex-col space-x-0 md:flex-row md:space-x-2">
-            <p className="tracking-tight text-neutral-900 dark:text-neutral-100 w-[500px]">
+            <p className="w-[500px] tracking-tight text-neutral-900 dark:text-neutral-100">
               {"•\t" + post.metadata.title}
             </p>
             <p className="w-[200px] tabular-nums text-neutral-600 dark:text-neutral-400">
