@@ -12,4 +12,37 @@ summary: "A guide to avoiding useEffect anti-patterns in React"
   height={840}
 />
 
+# Introduction
 
+Why does useEffect gets so much hate?
+
+{/* 
+    https://medium.com/@adarshrai3011/uncover-the-12-critical-usestate-useeffect-blunders-junior-react-developers-cant-afford-to-make-d91e8dd8725c 
+    https://react.dev/learn/you-might-not-need-an-effect
+*/}
+
+
+Introduction
+Brief overview of the useEffect hook and its purpose in React
+Explain that while useEffect is a powerful tool, there are certain scenarios where it should be used with caution or avoided altogether
+Avoid useEffect for performance-critical tasks
+useEffect can be expensive, especially if it's not optimized properly
+Identify tasks that need to be as fast as possible, such as event handlers or UI updates
+Suggest alternative approaches, like using React.memo or useMemo for memoization
+Avoid useEffect for synchronous side effects
+useEffect is designed for asynchronous side effects
+Synchronous side effects, such as directly manipulating the DOM, can lead to bugs and performance issues
+Recommend using alternative lifecycle methods or hooks, like useLayoutEffect
+Avoid useEffect for state updates that trigger other effects
+Chained useEffect calls can lead to infinite loops and unexpected behavior
+Explain the concept of "effect exhaustion" and how to avoid it
+Suggest using a single useEffect hook and managing dependencies carefully
+Avoid useEffect for complex cleanup logic
+Complex cleanup logic in useEffect can make the code harder to read and maintain
+Recommend separating cleanup logic into a separate function or using a dedicated cleanup hook
+Avoid useEffect for server-side rendering (SSR) and static site generation (SSG)
+useEffect is not executed on the server, so it's not suitable for tasks that need to be performed during SSR or SSG
+Suggest alternative approaches, such as using server-side lifecycle methods or hooking into the Next.js getStaticProps or getServerSideProps functions
+Conclusion
+Summarize the key points on when to avoid using the useEffect hook
+Encourage readers to carefully consider the use of useEffect in their React applications
