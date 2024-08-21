@@ -9,7 +9,7 @@ export default function Page() {
         Iliass&apos;s Yap zone
       </h1>
       <p className="mb-4">
-        My name is Iliass, and I work as a Senior Software Engineer.
+        My name is Iliass, and I work as a Software Engineer.
         <br /> Writing about engineering and other subjects that capture my
         interest.
         <br /> I strongly believe in the principles of minimalism, simplicity,
