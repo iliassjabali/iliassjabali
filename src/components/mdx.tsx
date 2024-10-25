@@ -104,7 +104,6 @@ export function CustomMDX(props: MDXRemoteProps) {
   return (
     <MDXRemote
       {...props}
-      // @ts-expect-error - `components` is not in the types
       components={{ ...components, ...(props.components ?? {}) }}
     />
   );

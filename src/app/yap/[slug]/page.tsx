@@ -12,10 +12,13 @@ export const generateStaticParams = () =>
     slug: post.slug,
   }));
 
-export function generateMetadata({ params }: { params: { slug: string } }) {
+export async function generateMetadata(props: {
+  params: Promise<{ slug: string }>;
+}) {
+  const params = await props.params;
   const post = getBlogPosts().find((post) => post.slug === params.slug);
   if (!post) {
-    return;
+    throw new Error("Post not found");
   }
 
   const {
@@ -50,9 +53,12 @@ export function generateMetadata({ params }: { params: { slug: string } }) {
   };
 }
 
-export default function Blog({
-  params,
-}: Readonly<{ params: { slug: string } }>) {
+export default async function Blog(
+  props: Readonly<{
+    params: Promise<{ slug: string }>;
+  }>,
+) {
+  const params = await props.params;
   const post = getBlogPosts().find((post) => post.slug === params.slug);
 
   if (!post) {
